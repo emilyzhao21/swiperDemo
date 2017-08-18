@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>移动端简历</title>
+    <link rel="stylesheet" href="css/swiper.css">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body,html{
+        width:  100%;
+        height: 100%;/*body不设高度时，高度为0*/
+        /* display: block; */
+        background-color: #000;
+    }
+    .swiper-container{
+        width:100%;
+        height:100%;
+    }
+    .swiper-slide{
+        overflow: hidden;
+        position: relative;
+    }
+    .page1 .grjl{
+        position: absolute;
+        top:10%;
+        left:0;
+        width:100%;
+        transform: translateX(100%);
+    }
+    .page1 .ball{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        transform: scale(0.2);
+    }
+    .page1 .p1{
+        position: absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        transform: translateY(100%);
+    }
+    .page1.current .grjl{
+        transform: translateX(0);
+        transition: all 1s;
+    }
+    .page1.current .ball{
+        transform: scale(1);
+        transition: all 1s;
+        /* animation: 动画名称 播放事件 播放速度 延时 循环 反向(alternate) */
+        animation:rotate 2s linear 1s infinite;
+    }
+    .page1.current .p1{
+        transform: translateY(0);
+        transition: all 1s;
+    }
+    .arr{
+        position: absolute;
+        bottom:0;
+        left:50%;
+        z-index:10;
+        transform: translateX(-50%);/* ? */
+        animation: translateY 1s linear 1s infinite alternate;
+    }
+    .page2 .lulu{
+        width: 150px;
+        height: 150px;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        position: absolute;
+        top:0;
+        left:50%;
+        margin-left: -75px;
+        transform: translateY(-100%);
+        transition: all 1s;
+    }
+    .page2 .p2{
+        position: absolute;
+        bottom: 0;
+        left:50%;
+        transform:translateX(-50%) translateY(100%);
+        transition: all 1s;
+    }
+    .page2.current .lulu{
+        transform: translateY(15%);
+    }
+    .page2.current .p2{
+        transform:translateX(-50%) translateY(0);
+    }
+    .page3 .list{
+        width: 80%;
+        transition: all 1s;
+        position: absolute;
+        left:50%;
+        margin-left: -40%;
+
+    }
+    .page3 .list1{
+        top:5%;
+    }
+    .page3 .list2{
+        top:25%;
+    }
+    .page3 .list3{
+        top:45%;
+    }
+    .page3 .list4{
+        top:65%;
+    }
+    .page3 .p3{
+        position: absolute;
+        bottom:0;
+        left:0;
+        width: 120px;
+    }
+    .page3 .list:nth-child(even){
+        transform: translateX(100%);
+    }
+    .page3 .list:nth-child(odd){
+        transform: translateX(-100%);
+    }
+    .page3.current .list{
+        transform: translateX(0);
+    }
+    .music{
+        position: fixed;
+        right:5%;
+        top:5%;
+        width: 54px;
+        height: 54px;
+        z-index: 20;
+    }
+    .play{
+         animation:rotate 2s linear 1s infinite;
+    }
+    /* 定义动画函数 */
+    @keyframes rotate{
+        0%{
+            transform:rotate(0deg);
+        }
+        100%{
+            transform:rotate(360deg);
+        }
+    }
+    @keyframes translateY{
+        0%{
+            transform:translateX(-50%) translateY(0);
+        }
+        100%{
+            transform:translateX(-50%) translateY(20px);
+        }
+    }
+</style>
+
+<body>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide page1">
+                <img src="images/grjl.png" class="grjl">
+                <img src="images/ball.png" class="ball">
+                <img src="images/p1.png" class="p1">
+            </div>
+            <div class="swiper-slide page2">
+                <img src="images/lulu.jpg" class="lulu">
+                <img src="images/p2.png" class="p2">
+            </div>
+            <div class="swiper-slide page3">
+                <img src="images/list1.png" class="list list1">
+                <img src="images/list3.png" class="list list2">
+                <img src="images/list4.png" class="list list3">
+                <img src="images/list5.png" class="list list4">
+                <img src="images/p3.png" class="p3">
+            </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        <!-- 添加上滑箭头 -->
+        <img src="images/arr.png" class="arr">
+        <!-- 音乐 -->
+        <audio src="music/hlw.mp3" autoplay loop class="audio1"></audio>
+        <img src="images/m1.png" class="music play">
+        <!-- 如果需要导航按钮 -->
+        <!-- <div class="swiper-button-prev"></div> -->
+        <!-- <div class="swiper-button-next"></div> -->
+
+        <!-- 如果需要滚动条 -->
+        <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script>
+        window.onload = function(){
+            /* 为第一个页面添加类名 */
+        $(".page1").addClass("current");
+        // 初始化swiper
+        var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'vertical',
+        loop: false,/* 是否循环 */
+        
+         // 如果需要分页器
+        pagination: '.swiper-pagination',
+        onSlideChangeEnd: function(swiper){
+            // alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+            //swiper.activeIndex  当前页面的索引值
+            var index = swiper.activeIndex;
+            $(".swiper-slide").eq(index).addClass("current").siblings().removeClass("current");
+        }
+        
+        /*// 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        
+        // 如果需要滚动条
+        scrollbar: '.swiper-scrollbar', */
+    })  
+        $(".music").on("click",function(){
+            $(this).toggleClass("play");
+            /* play() 和 pause()是DOM元素 */
+            var audio = $("audio")[0];
+            if(audio.paused){
+                audio.play();
+            }else{
+                audio.pause();
+            }
+        });
+        }
+       
+    </script>
+</body>
+</html>
